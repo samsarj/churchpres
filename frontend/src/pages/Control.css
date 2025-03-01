@@ -1,0 +1,30 @@
+/* Control.css */
+.panel {
+    /* padding: 15px; */
+    /* border: 1px solid #ddd; */
+    /* background-color: #f9f9f9; */
+    /* overflow: auto; */
+    /* Allow content overflow */
+}
+
+.panel h1 {
+    /* font-size: 1.5rem; */
+    /* color: #333; */
+}
+
+.resize {
+    background-color: #007bff;
+    cursor: ew-resize;
+    min-height: 6px;
+    min-width: 6px;
+    z-index: 10;
+    transition: background-color 0.3s ease;
+}
+
+.resize:hover {
+    background-color: #0056b3;
+}
+
+.resize:active {
+    background-color: #003366;
+}
