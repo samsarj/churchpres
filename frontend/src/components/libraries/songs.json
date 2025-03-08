@@ -1,0 +1,71 @@
+[
+  {
+    "id": 1,
+    "type": "Song",
+    "name": "How Great is Our God",
+    "authorship": {
+      "composer": "Chris Tomlin",
+      "lyricist": "Chris Tomlin, Ed Cash, Jesse Reeves"
+    },
+    "order": ["V1", "C", "V1", "C"],
+    "content": [
+      {
+        "id": 1,
+        "verse": "Verse 1",
+        "shorthand": "V1",
+        "variant": "success",
+        "lyrics": "The splendor of the King, clothed in majesty\nLet all the earth rejoice, all the earth rejoice\nHe wraps Himself in light, and darkness tries to hide\nAnd trembles at His voice, trembles at His voice"
+      },
+      {
+        "id": 2,
+        "verse": "Chorus",
+        "shorthand": "C",
+        "variant": "danger",
+        "lyrics": "How great is our God, sing with me\nHow great is our God, and all will see\nHow great, how great is our God"
+      },
+      {
+        "id": 3,
+        "verse": "Verse 2",
+        "shorthand": "V2",
+        "variant": "success",
+        "lyrics": "Age to age He stands, and time is in His hands\nBeginning and the end, beginning and the end\nThe Godhead Three in One, Father, Spirit, Son\nThe Lion and the Lamb, the Lion and the Lamb"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "type": "Song",
+    "name": "In Christ Alone",
+    "order": ["V1", "V2", "V3", "V4"],
+    "content": [
+      {
+        "id": 1,
+        "verse": "Verse 1",
+        "shorthand": "V1",
+        "variant": "success",
+        "lyrics": "In Christ alone my hope is found\nHe is my light, my strength, my song\nThis Cornerstone, this solid ground\nFirm through the fiercest drought and storm\nWhat heights of love, what depths of peace\nWhen fears are stilled, when strivings cease\nMy Comforter, my All in All\nHere in the love of Christ I stand"
+      },
+      {
+        "id": 2,
+        "verse": "Verse 2",
+        "shorthand": "V2",
+        "variant": "success",
+        "lyrics": "In Christ alone, who took on flesh\nFullness of God in helpless babe\nThis gift of love and righteousness\nScorned by the ones He came to save\nTill on that cross as Jesus died\nThe wrath of God was satisfied\nFor every sin on Him was laid\nHere in the death of Christ I live"
+      },
+      {
+        "id": 3,
+        "verse": "Verse 3",
+        "shorthand": "V3",
+        "variant": "success",
+        "lyrics": "There in the ground His body lay\nLight of the world by darkness slain\nThen bursting forth in glorious Day\nUp from the grave He rose again\nAnd as He stands in victory\nSin's curse has lost its grip on me\nFor I am His and He is mine\nBought with the precious blood of Christ"
+      },
+      {
+        "id": 4,
+        "verse": "Verse 4",
+        "shorthand": "V4",
+        "variant": "success",
+        "lyrics": "No guilt in life, no fear in death\nThis is the power of Christ in me\nFrom life's first cry to final breath\nJesus commands my destiny\nNo power of hell, no scheme of man\nCan ever pluck me from His hand\nTill He returns or calls me home\nHere in the power of Christ I'll stand"
+      }
+    ]
+  }
+]

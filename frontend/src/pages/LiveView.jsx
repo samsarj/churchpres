@@ -14,6 +14,19 @@ function LiveView() {
     document.title = "LIVE | ChurchPres";
   }, []);
 
+  useEffect(() => {
+    const channel = new BroadcastChannel("close_live_pages");
+    channel.addEventListener("message", (event) => {
+      if (event.data === "close") {
+        window.close();
+      }
+    });
+
+    return () => {
+      channel.close();
+    };
+  }, []);
+
   const handleClose = () => setShow(false);
 
   const handleFullscreen = () => {

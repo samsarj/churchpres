@@ -1,21 +1,33 @@
-import React from "react";
-import Song from "../Song";  // Importing Song component
+// import uuidv4 from "uuidv4"; // Importing uuidv4 to generate unique ids
+import Song from "../Song"; // Importing Song component
+import ListGroup from "react-bootstrap/ListGroup";
 
-function SongList() {
+import songs from './songs.json';
 
-    const songs = [
-    { id: 1, title: "Song 1" },
-    { id: 2, title: "Song 2" },
-    { id: 3, title: "Song 3" },
-    ];
+function SongList({ setPreviewedItem, previewedItem }) {
 
   return (
-    <div>
-      {songs.map((song) => (
-        <Song key={song.id} song={song} />  // Use Song component to render each song
-      ))}
+    <div style={{ maxHeight: "100%", overflowY: "auto" }}>
+      <ListGroup
+    variant="flush"
+     style={{ maxHeight: "100%", overflowY: "auto" }}
+     >
+      {songs.map((song, index) => {
+        return (
+          <ListGroup.Item
+            action
+            key={index}
+            active={previewedItem && previewedItem.id === song.id}
+            onClick={() => setPreviewedItem(song)}
+            // className="d-flex align-items-center p-0"
+          >
+            {song.name}
+          </ListGroup.Item>
+        );
+      })}
+    </ListGroup>
     </div>
   );
-};
+}
 
 export default SongList;

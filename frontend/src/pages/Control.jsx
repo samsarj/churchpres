@@ -1,15 +1,22 @@
 import { useState, useEffect } from "react";
 import { DndContext, DragOverlay } from "@dnd-kit/core";
+import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 import Container from "react-bootstrap/Container";
 import { createPortal } from "react-dom"; // for rendering outside the main component tree
 import LibraryManager from "../components/LibraryManager";
 import ServicePlanner from "../components/ServicePlanner";
 import Song from "../components/Song"; // Importing Song to show in overlay
 import Header from "../components/Header";
+import LiveControl from "../components/LiveControl";
+import PreviewControl from "../components/PreviewControl";
+import Footer from "../components/Footer";
 
 function Control() {
   const [serviceItems, setServiceItems] = useState([]);
   const [activeSong, setActiveSong] = useState(null); // Track the song being dragged
+
+  const [previewedItem, setPreviewedItem] = useState(null);
+  const [liveItem, setLiveItem] = useState(null);
 
   useEffect(() => {
     document.title = "CONTROL | ChurchPres";
@@ -33,22 +40,49 @@ function Control() {
   };
 
   return (
-    <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+    <>
       <Header />
-      <Container fluid style={{ height: "100vh", display: "flex" }}>
-        <LibraryManager />
-        <ServicePlanner serviceItems={serviceItems} />
-      </Container>
-
-      {/* Drag Overlay to show dragged item */}
-      {activeSong &&
-        createPortal(
-          <DragOverlay>
-            <Song song={activeSong} isDragging />
-          </DragOverlay>,
-          document.body
-        )}
-    </DndContext>
+      <PanelGroup direction="horizontal" style={{ height: "85vh" }}>
+        <PanelGroup direction="vertical">
+          <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+            <Panel>
+              <LibraryManager
+                setPreviewedItem={setPreviewedItem}
+                previewedItem={previewedItem}
+              />
+            </Panel>
+            <PanelResizeHandle />
+            <Panel>
+              <ServicePlanner serviceItems={serviceItems} />
+            </Panel>
+            {activeSong &&
+              createPortal(
+                <DragOverlay>
+                  <Song song={activeSong} isDragging />
+                </DragOverlay>,
+                document.body
+              )}
+          </DndContext>
+        </PanelGroup>
+        <PanelResizeHandle />
+        <PanelGroup direction="vertical">
+          <Panel>
+            <PreviewControl previewedItem={previewedItem} />
+          </Panel>
+          <PanelResizeHandle />
+          <Panel>Preview Window</Panel>
+        </PanelGroup>
+        <PanelResizeHandle />
+        <PanelGroup direction="vertical">
+          <Panel style={{ position: "relative" }}>
+            <LiveControl liveItem={liveItem} />
+          </Panel>
+          <PanelResizeHandle />
+          <Panel>Live Window</Panel>
+        </PanelGroup>
+      </PanelGroup>
+      <Footer />
+    </>
   );
 }
 

@@ -20,15 +20,11 @@ const Header = () => {
   });
 
   return (
-    <Navbar bg="light" expand="lg">
-      <Container style={{ height: "5vh" }}>
+    <Navbar bg="light" expand="lg" style={{ height: "10vh" }}>
+      <Container >
         <Navbar.Brand>ChurchPres</Navbar.Brand>
-        <p>
-          {currentItem} | {currentService}
-        </p>
-        <p>
-          {date.toLocaleTimeString()} | {date.toLocaleDateString()}
-        </p>
+        <Navbar.Text>{currentItem} | {currentService}</Navbar.Text>
+        <Navbar.Text>{date.toLocaleTimeString()} | {date.toLocaleDateString()}</Navbar.Text>
         <UIControls />
       </Container>
     </Navbar>
