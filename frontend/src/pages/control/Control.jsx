@@ -2,21 +2,19 @@ import { useState, useEffect } from "react";
 import { DndContext, DragOverlay } from "@dnd-kit/core";
 import { Panel, PanelGroup, PanelResizeHandle } from "react-resizable-panels";
 import Container from "react-bootstrap/Container";
-import { createPortal } from "react-dom"; // for rendering outside the main component tree
-import LibraryManager from "../components/LibraryManager";
-import ServicePlanner from "../components/ServicePlanner";
-import Song from "../components/Song"; // Importing Song to show in overlay
-import Header from "../components/Header";
-import LiveControl from "../components/LiveControl";
-import PreviewControl from "../components/PreviewControl";
-import Footer from "../components/Footer";
+import { createPortal } from "react-dom";
+import LibraryManager from "../../components/panels/LibraryManager";
+import ServicePlanner from "../../components/panels/ServicePlanner";
+import Song from "../../components/libraries/songs/Song";
+import Header from "../../components/Header";
+import LiveControl from "../../components/panels/LiveControl";
+import PreviewControl from "../../components/panels/PreviewControl";
+import Footer from "../../components/Footer";
+// import { DisplayItemContext } from "../../contexts/DisplayItemContext";
 
 function Control() {
   const [serviceItems, setServiceItems] = useState([]);
-  const [activeSong, setActiveSong] = useState(null); // Track the song being dragged
-
-  const [previewedItem, setPreviewedItem] = useState(null);
-  const [liveItem, setLiveItem] = useState(null);
+  const [activeSong, setActiveSong] = useState(null);
 
   useEffect(() => {
     document.title = "CONTROL | ChurchPres";
@@ -24,18 +22,18 @@ function Control() {
 
   const handleDragStart = (event) => {
     const song = event.active.data.current?.song;
-    setActiveSong(song); // Set the song that is being dragged
+    setActiveSong(song);
   };
 
   const handleDragEnd = (event) => {
     const { active, over } = event;
-    setActiveSong(null); // Reset active song after drag ends
+    setActiveSong(null);
 
     if (!over) return;
 
     if (active.data.current?.type === "song") {
       const newSong = active.data.current.song;
-      setServiceItems((prev) => [...prev, newSong]); // Add song to ServicePlanner
+      setServiceItems((prev) => [...prev, newSong]);
     }
   };
 
@@ -46,10 +44,7 @@ function Control() {
         <PanelGroup direction="vertical">
           <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
             <Panel>
-              <LibraryManager
-                setPreviewedItem={setPreviewedItem}
-                previewedItem={previewedItem}
-              />
+              <LibraryManager />
             </Panel>
             <PanelResizeHandle />
             <Panel>
@@ -67,7 +62,7 @@ function Control() {
         <PanelResizeHandle />
         <PanelGroup direction="vertical">
           <Panel>
-            <PreviewControl previewedItem={previewedItem} />
+            <PreviewControl />
           </Panel>
           <PanelResizeHandle />
           <Panel>Preview Window</Panel>
@@ -75,7 +70,7 @@ function Control() {
         <PanelResizeHandle />
         <PanelGroup direction="vertical">
           <Panel style={{ position: "relative" }}>
-            <LiveControl liveItem={liveItem} />
+            <LiveControl />
           </Panel>
           <PanelResizeHandle />
           <Panel>Live Window</Panel>

@@ -1,0 +1,27 @@
+{
+    "globalDefault": "default-light",
+    "themes": [
+    {
+        "name": "Default Light",
+        "slug": "default-light",
+        "backgroundColor": "#ffffff",
+        "textColor": "#000000",
+        "fontFamily": "Arial, sans-serif",
+        "fontSize": "24px",
+        "lineHeight": "1.5",
+        "textAlign": "center",
+        "customCSS": ""
+    },
+    {
+        "name": "Dark Mode",
+        "slug": "dark-mode",
+        "backgroundColor": "#000000",
+        "textColor": "#ffffff",
+        "fontFamily": "Georgia, serif",
+        "fontSize": "28px",
+        "lineHeight": "1.6",
+        "textAlign": "left",
+        "customCSS": "h1 { font-size: 36px; color: red; }"
+    }
+]
+}

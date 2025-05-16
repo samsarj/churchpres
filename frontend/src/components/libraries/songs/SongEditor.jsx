@@ -7,9 +7,9 @@ import ButtonGroup from "react-bootstrap/ButtonGroup";
 import FloatingLabel from "react-bootstrap/FloatingLabel";
 import Form from "react-bootstrap/Form";
 
-import songs from "./libraries/songs.json";
+import songs from "./songs.json";
 
-import SlideController from "./SlideController";
+import SlideController from "../../global/SlideController";
 import LyricsEditor from "./LyricsEditor";
 import { v4 as uuidv4 } from "uuid";
 import SlideOrder from "./SlideOrder";

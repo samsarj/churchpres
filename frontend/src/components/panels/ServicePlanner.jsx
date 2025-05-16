@@ -1,7 +1,7 @@
 import React from "react";
 import { DndContext, useDraggable, useDroppable } from "@dnd-kit/core";
 import { arrayMove } from "@dnd-kit/sortable";  // For reordering
-import Song from "./Song";  // Importing Song component
+import Song from "../libraries/songs/Song";  // Importing Song component
 
 const ServicePlanner = ({ serviceItems, setServiceItems }) => {
   const handleDragEnd = (event) => {

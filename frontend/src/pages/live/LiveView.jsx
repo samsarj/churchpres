@@ -3,7 +3,7 @@ import { Fullscreen } from "react-bootstrap-icons";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
-import LiveContent from "../components/LiveContent";
+import LiveContent from "../../components/LiveContent";
 
 import "./Live.css"
 
