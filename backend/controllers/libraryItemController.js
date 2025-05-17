@@ -33,3 +33,15 @@ exports.deleteItem = async (req, res) => {
   if (!result) return res.status(404).json({ message: 'Item not found' });
   res.json({ message: 'Item deleted' });
 };
+
+// PUT update slide order
+exports.updateSlideOrder = async (req, res) => {
+  const { libraryId, slideId, newOrder } = req.body;
+  const item = await LibraryItem.findById(libraryId);
+  if (!item) return res.status(404).json({ message: 'Item not found' });
+  const slide = item.slides.id(slideId);
+  if (!slide) return res.status(404).json({ message: 'Slide not found' });
+  slide.order = newOrder;
+  await item.save();
+  res.json(item);
+}
