@@ -1,31 +1,26 @@
-import { useContext, useEffect } from "react";
-import { DisplayItemContext } from "../contexts/DisplayItemContext";
+import { useEffect } from "react";
+import { useGlobalStore } from "../stores/globalStore";
 
 const LiveContent = () => {
-  const context = useContext(DisplayItemContext);
+  const liveItem = useGlobalStore((state) => state.liveItem);
 
   useEffect(() => {
-    console.log("LiveContent context:", context);
-  }, [context]);
-
-  if (!context) {
-    return <div className="live">DisplayItemContext not found.</div>;
-  }
-
-  const { liveItem } = context;
+    console.log("LiveContent liveItem:", liveItem);
+  }, [liveItem]);
 
   return (
     <div className="live">
       <h1>Live Content</h1>
       <p>This is where the live content will be.</p>
-      <pre>{JSON.stringify(context, null, 2)}</pre>
-      {liveItem && (
+      <pre>{JSON.stringify(liveItem, null, 2)}</pre>
+      {liveItem ? (
         <div>
           <h2>Live Item:</h2>
           <p>{JSON.stringify(liveItem)}</p>
         </div>
+      ) : (
+        <p>No live item selected.</p>
       )}
-      {!liveItem && <p>No live item selected.</p>}
     </div>
   );
 };

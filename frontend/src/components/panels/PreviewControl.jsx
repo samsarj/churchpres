@@ -1,17 +1,17 @@
-import { useContext } from "react";
 import SlideController from "../global/SlideController";
-
-import { DisplayItemContext } from "../../contexts/DisplayItemContext";  // Corrected import path
+import { useGlobalStore } from "../../stores/globalStore";
 
 function PreviewControl() {
-  const { previewedItem, setLiveItem } = useContext(DisplayItemContext);
+  const previewItem = useGlobalStore((state) => state.previewItem);
+  const setPreviewSlideIndex = useGlobalStore((state) => state.setPreviewSlideIndex);
+  const setLiveItem = useGlobalStore((state) => state.setLiveItem);
 
   const handleGoLive = () => {
-    if (previewedItem) setLiveItem(previewedItem);
+    if (previewItem) setLiveItem(previewItem);
   };
 
   return (
-    <SlideController item={previewedItem} onGoLive={handleGoLive} />
+    <SlideController item={previewItem} setActiveSlideIndex={setPreviewSlideIndex} onGoLive={handleGoLive} />
   );
 }
 

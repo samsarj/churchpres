@@ -10,11 +10,13 @@ import Header from "../../components/Header";
 import LiveControl from "../../components/panels/LiveControl";
 import PreviewControl from "../../components/panels/PreviewControl";
 import Footer from "../../components/Footer";
-// import { DisplayItemContext } from "../../contexts/DisplayItemContext";
+import { useServicePlanStore } from "../../stores/servicePlanStore";
+import PreviewWindow from "../../components/panels/PreviewWindow";
+import LiveWindow from "../../components/panels/LiveWindow";
 
 function Control() {
-  const [serviceItems, setServiceItems] = useState([]);
   const [activeSong, setActiveSong] = useState(null);
+  const addItemToPlan = useServicePlanStore((state) => state.addItemToPlan);
 
   useEffect(() => {
     document.title = "CONTROL | ChurchPres";
@@ -33,7 +35,7 @@ function Control() {
 
     if (active.data.current?.type === "song") {
       const newSong = active.data.current.song;
-      setServiceItems((prev) => [...prev, newSong]);
+      addItemToPlan(newSong);
     }
   };
 
@@ -48,7 +50,7 @@ function Control() {
             </Panel>
             <PanelResizeHandle />
             <Panel>
-              <ServicePlanner serviceItems={serviceItems} />
+              <ServicePlanner />
             </Panel>
             {activeSong &&
               createPortal(
@@ -65,7 +67,9 @@ function Control() {
             <PreviewControl />
           </Panel>
           <PanelResizeHandle />
-          <Panel>Preview Window</Panel>
+          <Panel>
+            <PreviewWindow />
+          </Panel>
         </PanelGroup>
         <PanelResizeHandle />
         <PanelGroup direction="vertical">
@@ -73,7 +77,9 @@ function Control() {
             <LiveControl />
           </Panel>
           <PanelResizeHandle />
-          <Panel>Live Window</Panel>
+          <Panel>
+            <LiveWindow />
+          </Panel>
         </PanelGroup>
       </PanelGroup>
       <Footer />

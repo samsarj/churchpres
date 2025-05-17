@@ -2,7 +2,7 @@ import { useDraggable } from "@dnd-kit/core";
 
 const Song = ({ song, isDragging }) => {
   const { attributes, listeners, setNodeRef } = useDraggable({
-    id: song.id,
+    id: song.id || song._id,
     data: { type: "song", song },
   });
 
@@ -23,7 +23,7 @@ const Song = ({ song, isDragging }) => {
         boxShadow: isDragging ? "0 4px 8px rgba(0, 0, 0, 0.3)" : "none",  // Add shadow during drag
       }}
     >
-      🎵 {song.title}
+      🎵 {song.title || song.name}
     </div>
   );
 };

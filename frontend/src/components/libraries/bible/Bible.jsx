@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-import Container from "react-bootstrap/esm/Container";
+import Container from "react-bootstrap/Container";
 
 const Bible = ({ }) => {
   const [show, setShow] = useState(false);
@@ -10,7 +10,7 @@ const Bible = ({ }) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleAddToService = () => {
-    console.log("Adding Bible to service");
+    console.log("Function here to add bible passage to service");
     handleClose();
   }
 
