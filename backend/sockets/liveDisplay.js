@@ -1,18 +1,33 @@
-module.exports = (io) => {
+let liveState = {
+  liveItem: null,
+  liveSlideIndex: 0,
+  blank: false,
+  clear: false,
+};
+
+module.exports = function(io) {
   io.on('connection', (socket) => {
     console.log('Client connected:', socket.id);
 
-    socket.on('go-live', (data) => {
-      // broadcast to all clients except sender
-      socket.broadcast.emit('update-live-display', data);
+    socket.on('live:get', () => {
+      socket.emit('live:state', liveState);
     });
 
-    socket.on('preview-slide', (data) => {
-      socket.broadcast.emit('update-preview', data);
-    });
+    socket.on('live:set', (data) => {
+      const { type } = data;
 
-    socket.on('disconnect', () => {
-      console.log('Client disconnected:', socket.id);
+      if (type === 'item') {
+        liveState.liveItem = data.item;
+        liveState.liveSlideIndex = 0;
+      } else if (type === 'slideIndex') {
+        liveState.liveSlideIndex = data.slideIndex;
+      } else if (type === 'blank') {
+        liveState.blank = data.blank;
+      } else if (type === 'clear') {
+        liveState.clear = data.clear;
+      }
+
+      io.emit('live:update', data); // broadcast to all
     });
   });
-};
+}

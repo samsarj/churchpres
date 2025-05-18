@@ -51,7 +51,7 @@ function SlideListItem({ slide, index, active, onSelect }) {
   );
 }
 
-function SlideController({ item, setActiveSlideIndex, useOrder, onGoLive }) {
+function SlideController({ item, setActiveSlideIndex, useOrder }) {
   const [activeId, setActiveId] = useState(null);
   const useOrderValue = useOrder !== undefined ? useOrder : true;
 

@@ -1,53 +1,66 @@
 import { create } from 'zustand';
+import socket from '../sockets/socket'; // adjust path to match
 
 export const useGlobalStore = create((set, get) => ({
 
+  // --- State
   selectedLibraryItem: null,
   previewItem: null,
   liveItem: null,
-
   blank: false,
-  setBlank: (blank) => {
-    if (get().blank !== blank) {
-      console.log('blank changed:', blank);
-      set({ blank });
-    }
-  },
-  
   clear: false,
-  setClear: (clear) => {
-    if (get().clear !== clear) {
-      console.log('clear changed:', clear);
-      set({ clear });
-    }
-  },
-
   previewSlideIndex: 0,
   liveSlideIndex: 0,
 
-  setPreviewSlideIndex: (index) => {
-    if (get().previewSlideIndex !== index) {
-      console.log('previewSlideIndex changed:', index);
-      set({ previewSlideIndex: index });
-    }
+  // --- Setters (preview)
+  setPreviewItem: (item) => {
+    set({ previewItem: item, previewSlideIndex: 0 });
   },
-  setLiveSlideIndex: (index) => {
-    if (get().liveSlideIndex !== index) {
-      console.log('liveSlideIndex changed:', index);
-      set({ liveSlideIndex: index });
-    }
+  setPreviewSlideIndex: (index) => {
+    set({ previewSlideIndex: index });
   },
 
-  setPreviewItem: (item) => {
-    if (get().previewItem !== item) {
-      console.log('previewItem changed:', item);
-      set({ previewItem: item, previewSlideIndex: 0 });
-    }
-  },
+  // --- Live setters with WebSocket emit
   setLiveItem: (item) => {
-    if (get().liveItem !== item) {
-      console.log('liveItem changed:', item);
-      set({ liveItem: item, liveSlideIndex: 0 });
-    }
+    const payload = { type: 'item', item };
+    socket.emit('live:set', payload);
+    set({ liveItem: item, liveSlideIndex: 0 });
+  },
+  setLiveSlideIndex: (index) => {
+    const payload = { type: 'slideIndex', slideIndex: index };
+    socket.emit('live:set', payload);
+    set({ liveSlideIndex: index });
+  },
+
+  setBlank: (blank) => {
+    socket.emit('live:set', { type: 'blank', blank });
+    set({ blank });
+  },
+  setClear: (clear) => {
+    socket.emit('live:set', { type: 'clear', clear });
+    set({ clear });
+  },
+
+  // --- Init WebSocket listeners
+  initLiveSync: () => {
+    socket.on('live:update', (payload) => {
+      // handle each type of update
+      const { type } = payload;
+      if (type === 'item') {
+        set({ liveItem: payload.item, liveSlideIndex: 0 });
+      } else if (type === 'slideIndex') {
+        set({ liveSlideIndex: payload.slideIndex });
+      } else if (type === 'blank') {
+        set({ blank: payload.blank });
+      } else if (type === 'clear') {
+        set({ clear: payload.clear });
+      }
+    });
+
+    // Get initial state
+    socket.emit('live:get');
+    socket.on('live:state', (state) => {
+      set({ ...state });
+    });
   },
 }));
